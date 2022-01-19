@@ -1,0 +1,9 @@
+.superCategory {
+	border-bottom: 1px solid #bbb;
+	padding: 0.4rem;
+}
+
+.note {
+	font-size: 1.1rem;
+	padding: 0.4rem 0.2rem;
+}

@@ -1,0 +1,24 @@
+.label {
+	color: var(--foreground);
+	opacity: 0.6;
+}
+
+:global(.Mui-focused).label,
+:global(.Mui-error).label {
+	opacity: 1;
+}
+
+.border {
+	border-color: var(--foreground);
+	opacity: 0.25;
+}
+
+div:hover > .border {
+	border-color: var(--foreground);
+}
+
+div:hover > .border,
+div > input:focus ~ .border,
+:global(div.Mui-error) > .border {
+	opacity: 0.9;
+}

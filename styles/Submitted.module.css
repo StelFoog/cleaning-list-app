@@ -1,0 +1,74 @@
+.list {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	width: 100%;
+}
+
+.item {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	padding: 1rem 0.6rem;
+	align-items: center;
+	cursor: pointer;
+}
+
+/* .item::before is the background and .item::after are the borders */
+.item::before,
+.item::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	color: inherit;
+}
+
+.item::after {
+	border-bottom: 1px solid currentColor;
+	opacity: 0.2;
+}
+
+.item:last-child::after {
+	border-bottom: none;
+}
+
+.item::before {
+	background-color: currentColor;
+	transition: all 0.25s ease;
+	opacity: 0;
+}
+
+.item:hover::before {
+	opacity: 0.1;
+}
+
+/* Item content */
+.item > div {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	padding-right: 0.6rem;
+}
+
+.itemContentUpper {
+	width: 100%;
+	flex-direction: row;
+	align-items: center;
+}
+
+.itemVersion {
+	opacity: 0.65;
+	font-size: 0.75rem;
+	padding-left: 0.2rem;
+}
+
+.itemContentLower {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 0.9rem;
+}

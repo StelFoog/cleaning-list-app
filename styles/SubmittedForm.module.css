@@ -1,0 +1,31 @@
+.table > tr > td {
+	padding-bottom: 0.6rem;
+}
+
+.table > tr > td:first-child {
+	width: 1%;
+	white-space: nowrap;
+	padding-right: 0.8rem;
+	vertical-align: top;
+}
+
+.omitted {
+	position: relative;
+	margin-top: 0.2rem;
+	padding-top: 0.2rem;
+	padding-left: 0.5rem;
+	margin-left: 0.3rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.omitted::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	border-left: 2px solid currentColor;
+	opacity: 0.6;
+}

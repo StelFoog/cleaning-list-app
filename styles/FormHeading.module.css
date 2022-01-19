@@ -1,0 +1,16 @@
+.heading {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	padding-bottom: 0.4rem;
+	margin-bottom: 0.4rem;
+	border-bottom: 1px solid #bbb;
+}
+
+.version {
+	align-self: flex-end;
+	font-size: 0.6rem;
+	margin-left: auto;
+	padding-right: 1rem;
+}
