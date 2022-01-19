@@ -1,7 +1,7 @@
 export function toSafe(str: string): string {
-	return str.replaceAll('.', '\\·');
+	return str.replace(/\./g, '\\·');
 }
 
 export function fromSafe(str: string): string {
-	return str.replaceAll('\\·', '.');
+	return str.replace(/\\·/g, '.');
 }
