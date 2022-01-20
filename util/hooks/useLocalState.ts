@@ -9,7 +9,7 @@ export default function useLocalState<T = string>(
 		const ls = window.localStorage.getItem(key);
 		if (ls === null) setState(null);
 		else setState(JSON.parse(ls));
-	}, []);
+	}, [key]);
 
 	function setLocalStorage(value: T | null): void {
 		setState(value);
