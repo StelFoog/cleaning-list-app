@@ -10,7 +10,7 @@ import { SubmissionErrors, ValidationErrors } from 'final-form';
 import { ISO_DATE_NO_DASH } from '../../util/date';
 import { ParsedUrlQuery } from 'querystring';
 import FormHeading from '../../components/FormHeading';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Loader from '../../components/Loader';
 import { submitForm } from '../../util/api';
 import useAuth from '../../util/hooks/useAuth';
@@ -116,6 +116,7 @@ const FormPage: NextPage<Props> = (props) => {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
+				subscription={{ submitting: true, pristine: true }}
 				render={({ handleSubmit }) => (
 					<form onSubmit={handleSubmit}>
 						<SuperCategories form={formData} />
