@@ -1,11 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { connenctToCollection } from '../../util/db';
 import { authorize } from '../../util/authorize';
-import { SubmittedList } from '../../types/db';
-import { Document, ObjectId } from 'bson';
-import { Collection } from 'mongodb';
-import { FETCH_LIMIT } from '../../util/constants/db';
 import delay from '../../util/delay';
 
 type ResData = {

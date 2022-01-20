@@ -2,7 +2,6 @@ import TextField from '@mui/material/TextField';
 import React from 'react';
 import { FieldInputProps } from 'react-final-form';
 import NumberFormat from 'react-number-format';
-import styles from '../styles/TextInput.module.css';
 
 interface Props {
 	input: FieldInputProps<any, HTMLElement>;

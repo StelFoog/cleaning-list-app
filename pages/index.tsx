@@ -1,6 +1,5 @@
 import { ChevronRightIcon, FileIcon, GearIcon, Icon, InboxIcon } from '@primer/octicons-react';
 import type { NextPage } from 'next';
-import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
@@ -14,7 +13,6 @@ import useMuiTheme from '../util/hooks/useMuiTheme';
 import useMounted from '../util/hooks/useMounted';
 
 const Home: NextPage = () => {
-	const router = useRouter();
 	const [auth, newAuth] = useAuth();
 
 	return (

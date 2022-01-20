@@ -3,7 +3,6 @@ import { useTheme } from 'next-themes';
 import { useRouter } from 'next/router';
 import LabeledCheck from '../components/LabeledCheck';
 import useAuth from '../util/hooks/useAuth';
-import useMounted from '../util/hooks/useMounted';
 
 const Settings: NextPage = () => {
 	const router = useRouter();

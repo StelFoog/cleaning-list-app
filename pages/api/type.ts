@@ -3,7 +3,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { connenctToCollection } from '../../util/db';
 import { ResData, SubmittedList } from '../../types/db';
 import { ObjectID } from 'bson';
-import { listTypes } from '../../util/constants/db';
 import { ListTypes } from '../../types/forms';
 
 export default async function handler(
