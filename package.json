@@ -19,6 +19,7 @@
     "mongodb": "^4.1.4",
     "next": "12.0.4",
     "next-themes": "^0.0.15",
+    "object-hash": "^2.2.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-final-form": "^6.5.7",
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "16.11.7",
+    "@types/object-hash": "^2.2.1",
     "@types/react": "17.0.35",
     "@typescript-eslint/eslint-plugin": "^4.28.4",
     "@typescript-eslint/parser": "^4.28.4",

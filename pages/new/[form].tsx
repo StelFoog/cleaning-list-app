@@ -1,24 +1,29 @@
+import { ThemeProvider } from '@mui/material';
+import { SubmissionErrors, ValidationErrors } from 'final-form';
 import { readdirSync, readFileSync } from 'fs';
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next';
-import { Form, Field } from 'react-final-form';
+import { useRouter } from 'next/router';
 import path from 'path';
-import { CleaningCategory, CleaningList } from '../../types/forms';
-import styles from '../../styles/Form.module.css';
-import LabeledCheck from '../../components/LabeledCheck';
-import TextInput from '../../components/TextInput';
-import { SubmissionErrors, ValidationErrors } from 'final-form';
-import { ISO_DATE_NO_DASH } from '../../util/date';
 import { ParsedUrlQuery } from 'querystring';
+import { useState } from 'react';
+import { Field, Form } from 'react-final-form';
 import FormHeading from '../../components/FormHeading';
-import { useRef, useState } from 'react';
+import LabeledCheck from '../../components/LabeledCheck';
 import Loader from '../../components/Loader';
+import TextInput from '../../components/TextInput';
+import styles from '../../styles/Form.module.css';
+import { CleaningCategory, CleaningList } from '../../types/forms';
 import { submitForm } from '../../util/api';
+import useFormPersist from '../../util/hooks/useFormPersist';
+import { ISO_DATE_NO_DASH } from '../../util/date';
 import useAuth from '../../util/hooks/useAuth';
-import { ThemeProvider } from '@mui/material';
 import useMounted from '../../util/hooks/useMounted';
 import useMuiTheme from '../../util/hooks/useMuiTheme';
-import { useRouter } from 'next/router';
 import { toSafe } from '../../util/safePeriod';
+
+interface Props {
+	form: CleaningList;
+}
 
 interface FormValues {
 	checks: Record<string, boolean>;
@@ -53,23 +58,23 @@ function allUnchecked(checks: Checks): Unchecked {
 	return unchecked;
 }
 
-// TODO: Add persistance to form
-//   (eg: https://github.com/premieroctet/final-form-persist/blob/master/src/index.ts)
-// TODO: Add option for user to have name and phone number preset
 const FormPage: NextPage<Props> = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [auth] = useAuth();
 	const muiTheme = useMuiTheme();
 	const mounted = useMounted();
 	const router = useRouter();
+	const { persistMutator, PersistSpy, clearPersistance } = useFormPersist({
+		whitelist: ['checks'],
+	});
 
 	// In the future this page could and should be expanded to handle other types of forms
-	const formData = props.form as CleaningList;
+	const formData = props.form;
 
-	async function onSubmit(values: FormValues): Promise<SubmissionErrors | void> {
+	async function onSubmit(formValues: object): Promise<SubmissionErrors | void> {
 		if (auth) {
 			setLoading(true);
-			const { checks, name, phone, eventDate, host, note } = values;
+			const { checks, name, phone, eventDate, host, note } = formValues as FormValues;
 			const { type, version } = formData;
 			// Inferance of types incorrectly assumes checks is Record<string, boolean>
 			// Has to first assert to unknown since overlap Record<string, boolean> to Checks is big enough
@@ -85,6 +90,7 @@ const FormPage: NextPage<Props> = (props) => {
 				version,
 				omittedChecks: unchecked,
 			});
+			clearPersistance();
 			setLoading(false);
 			if (res?.value) router.push('/');
 			// handle error if submit didn't work
@@ -92,7 +98,9 @@ const FormPage: NextPage<Props> = (props) => {
 		// Add error handling to display to user why nothing happend if not authenticated
 	}
 
-	function validate(values: FormValues): ValidationErrors {
+	function validate(formValues: object): ValidationErrors {
+		const values = formValues as FormValues;
+
 		const errors: ValidationErrors = {};
 		if (!values.name) errors.name = 'Required';
 		if (!values.phone) errors.phone = 'Required';
@@ -116,10 +124,17 @@ const FormPage: NextPage<Props> = (props) => {
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
+				mutators={{ persistMutator }}
 				subscription={{ submitting: true, pristine: true }}
-				render={({ handleSubmit }) => (
+				render={({ handleSubmit, form }) => (
 					<form onSubmit={handleSubmit}>
+						<PersistSpy
+							mutate={form.mutators.persistMutator}
+							type={formData.type}
+							version={formData.version}
+						/>
 						<SuperCategories form={formData} />
+						<div className="contentSplit" />
 						{/* Has to wait for component to render client–side for theme to be applied */}
 						{mounted && (
 							<ThemeProvider theme={muiTheme}>
@@ -180,7 +195,7 @@ const FormPage: NextPage<Props> = (props) => {
 							</ThemeProvider>
 						)}
 						<div className="contentSplit" />
-						<button type="submit">Click</button>
+						<button type="submit">Submit</button>
 					</form>
 				)}
 			/>
