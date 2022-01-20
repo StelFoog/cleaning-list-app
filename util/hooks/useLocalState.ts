@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function <T = string>(
+export default function useLocalState<T = string>(
 	key: string
 ): [T | null | undefined, (value: T | null) => void] {
 	const [state, setState] = useState<T | null | undefined>(undefined);
