@@ -104,7 +104,7 @@ const FormPage: NextPage<Props> = (props) => {
 			(!values.note && !values.checks) ||
 			(!values.note && Object.keys(allUnchecked(values.checks as unknown as Checks)).length)
 		)
-			errors.note = 'Required';
+			errors.note = 'Required, must explain why checks were left unchecked';
 
 		return errors;
 	}
