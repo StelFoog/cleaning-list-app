@@ -57,7 +57,6 @@ export default function useFormPersist({
 					const newHash = objectHash(persist.values);
 					if (hash !== newHash) {
 						setHash(newHash);
-						console.log(mutate);
 						mutate(persist.values);
 					}
 				}
