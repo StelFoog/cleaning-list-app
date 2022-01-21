@@ -53,8 +53,10 @@ const List: NextPage<Props> = ({ id, form }) => {
 							)}
 						</tbody>
 					</table>
-					{list.omittedChecks && Object.keys(list.omittedChecks).length > 0 && (
+					{list.omittedChecks && Object.keys(list.omittedChecks).length > 0 ? (
 						<OmittedChecks omittedChecks={list.omittedChecks} form={form} />
+					) : (
+						<h3 style={{ color: '#4a5' }}>All checks completed!</h3>
 					)}
 				</>
 			)}
