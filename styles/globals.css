@@ -149,7 +149,6 @@ form {
 }
 
 /* OPEN: Material UI alterations */
-
 p.MuiFormHelperText-root {
 	margin-top: 0;
 	font-size: 0.5rem;
@@ -171,6 +170,19 @@ input.MuiInputBase-input {
 	height: 100%;
 }
 /* END: Material UI alterations */
+
+/* OPEN: Fix react-toastify conflicts with other rules */
+div.Toastify__toast,
+div.Toastify__toast-body {
+	flex-direction: row;
+}
+
+button.Toastify__close-button {
+	border-radius: 0;
+	box-shadow: none;
+	font-size: unset;
+}
+/* END: Fix react-toastify conflicts with other rules */
 
 .container {
 	width: 100%;

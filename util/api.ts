@@ -18,6 +18,6 @@ export async function submitForm(auth: string, form: SubmittableList): Promise<R
 		.then((res: AxiosResponse<ResData<string>>) => res.data)
 		.catch((error: AxiosError<ResData<string>>) => {
 			if (error.response) return error.response.data;
-			else return { error: error.message, authenticated: null };
+			else return { error: error.message };
 		});
 }

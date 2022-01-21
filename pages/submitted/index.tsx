@@ -8,7 +8,7 @@ import { formatDate } from '../../util/date';
 import useAxios from '../../util/hooks/useAxios';
 
 const SubmittedList: NextPage = () => {
-	const { data, error, loading } = useAxios<ResData<ListableForm[]>>('get');
+	const { data, loading } = useAxios<ResData<ListableForm[]>>('get');
 
 	const documents = data?.value;
 
@@ -17,18 +17,12 @@ const SubmittedList: NextPage = () => {
 			<main>
 				{loading && <Loader />}
 				<h1>Submitted Forms</h1>
-				{documents instanceof Array && (
+				{documents && documents instanceof Array && (
 					<ul className={styles.list}>
 						{documents.map((doc) => (
 							<Item key={doc._id.toString()} form={doc} />
 						))}
 					</ul>
-				)}
-				{error && (
-					<div>
-						<h3>An error has occured</h3>
-						<p>{error}</p>
-					</div>
 				)}
 			</main>
 		</>

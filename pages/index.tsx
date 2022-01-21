@@ -11,6 +11,8 @@ import { SubmissionErrors } from 'final-form';
 import { ThemeProvider } from '@mui/material';
 import useMuiTheme from '../util/hooks/useMuiTheme';
 import useMounted from '../util/hooks/useMounted';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
 const Home: NextPage = () => {
 	const [auth, newAuth] = useAuth();
@@ -36,12 +38,16 @@ const Home: NextPage = () => {
 };
 
 function AddAuthentication({ newAuth }: { newAuth: NewAuth }): JSX.Element {
+	const router = useRouter();
 	const muiTheme = useMuiTheme();
 	const mounted = useMounted();
 
-	async function onSubmit({ auth }: { auth: string }): Promise<SubmissionErrors> {
+	async function onSubmit({ auth }: { auth: string }): Promise<SubmissionErrors | void> {
 		const result = await newAuth(auth);
-		if (!result) return { auth: 'INvalid authentication key' };
+		if (!result) {
+			toast.error('INvalid authentication key');
+			return { auth: 'INvalid authentication key' };
+		} else if (typeof router.query.back === 'string') router.push(router.query.back);
 	}
 
 	function validate({ auth }: { auth: string }) {

@@ -20,6 +20,7 @@ import useAuth from '../../util/hooks/useAuth';
 import useMounted from '../../util/hooks/useMounted';
 import useMuiTheme from '../../util/hooks/useMuiTheme';
 import { toSafe } from '../../util/safePeriod';
+import { toast } from 'react-toastify';
 
 interface Props {
 	form: CleaningList;
@@ -65,11 +66,22 @@ const FormPage: NextPage<Props> = (props) => {
 	const mounted = useMounted();
 	const router = useRouter();
 	const { persistMutator, PersistSpy, clearPersistance } = useFormPersist({
-		whitelist: ['checks'],
+		whitelist: ['checks', 'note'],
 	});
 
 	// In the future this page could and should be expanded to handle other types of forms
 	const formData = props.form;
+
+	function noAuthentication(): void {
+		toast.warn(
+			<div>
+				<span>{'Not authenticated!'}</span>
+				<br />
+				<span>{"Don't worry, everything will still be where you left it 🙂"}</span>
+			</div>
+		);
+		router.push(`/?back=${router.asPath}`);
+	}
 
 	async function onSubmit(formValues: object): Promise<SubmissionErrors | void> {
 		if (auth) {
@@ -90,12 +102,16 @@ const FormPage: NextPage<Props> = (props) => {
 				version,
 				omittedChecks: unchecked,
 			});
-			clearPersistance();
-			setLoading(false);
-			if (res?.value) router.push('/');
-			// handle error if submit didn't work
-		}
-		// Add error handling to display to user why nothing happend if not authenticated
+			if (res?.value) {
+				clearPersistance();
+				setLoading(false);
+				toast.success('Successful submit');
+				router.push('/');
+			} else {
+				if (res?.deauthenticated) noAuthentication();
+				if (res?.error) toast.error(res.error);
+			}
+		} else noAuthentication();
 	}
 
 	function validate(formValues: object): ValidationErrors {

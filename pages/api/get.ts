@@ -24,7 +24,7 @@ export default async function handler(
 		return;
 	}
 	if (!authorize(headers.authorization)) {
-		res.status(401).json({ error: 'INvalid authorization header' });
+		res.status(401).json({ error: 'INvalid authorization header', deauthenticated: true });
 		return;
 	}
 
