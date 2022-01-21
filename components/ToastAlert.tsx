@@ -11,6 +11,7 @@ export default function ToastAlert(): JSX.Element {
 			autoClose={5000}
 			newestOnTop
 			pauseOnFocusLoss
+			closeOnClick={false}
 			draggable
 			pauseOnHover
 			theme={theme === 'dark' ? 'dark' : 'light'}
