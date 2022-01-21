@@ -106,7 +106,7 @@ const FormPage: NextPage<Props> = (props) => {
 			if (res?.value) {
 				clearPersistance();
 				setLoading(false);
-				toast.success('Successful submit');
+				toast.success('Submitted sucessfully 👍');
 				router.push('/');
 			} else {
 				if (res?.deauthenticated) noAuthentication();
@@ -153,6 +153,7 @@ const FormPage: NextPage<Props> = (props) => {
 						<SuperCategories form={formData} />
 						<div className="contentSplit" />
 						{/* Has to wait for component to render client–side for theme to be applied */}
+						{/* As a side-effect this makes persisted data invisible until the field is interacted with or the form tries to submit */}
 						{mounted && (
 							<ThemeProvider theme={muiTheme}>
 								<Field
