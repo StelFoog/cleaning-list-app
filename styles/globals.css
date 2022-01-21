@@ -14,6 +14,7 @@
 	--foreground: #000;
 	--primary: var(--kisel-dark);
 	--secondary: var(--kisel-darker);
+	--contrast: #1d68f3;
 }
 
 /* TO be used with future dark mode */
@@ -22,6 +23,7 @@
 	--secondary: var(--kisel-lighter);
 	--background: #222;
 	--foreground: #eee;
+	--contrast: #04a6f1;
 }
 
 html,
