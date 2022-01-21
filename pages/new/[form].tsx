@@ -89,7 +89,8 @@ const FormPage: NextPage<Props> = (props) => {
 			const { checks, name, phone, eventDate, host, note } = formValues as FormValues;
 			const { type, version } = formData;
 			// Inferance of types incorrectly assumes checks is Record<string, boolean>
-			// Has to first assert to unknown since overlap Record<string, boolean> to Checks is big enough
+			// Has to first assert to unknown since overlap from Record<string, boolean> to Checks
+			// isn't big enough
 			const unchecked = allUnchecked(checks as unknown as Checks);
 
 			const res = await submitForm(auth, {
