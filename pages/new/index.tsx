@@ -4,6 +4,8 @@ import Link from 'next/link';
 import path from 'path';
 import styles from '../../styles/Forms.module.css';
 import { CleaningList, ListTypes } from '../../types/forms';
+import { getTranslations } from '../../util/getLocalizations';
+import localize from '../../util/localize';
 
 interface Props {
 	forms: { title: string; type: ListTypes }[];
@@ -30,15 +32,17 @@ function Option({ title, link }: { title: string; link: string }) {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
 	// could use '/forms/en/', both should contain the exact same filenames
-	const filenames = readdirSync(path.join(process.cwd(), 'forms', 'sv'));
+	const filenames = readdirSync(path.join(process.cwd(), 'forms'));
 
 	const forms: { title: string; type: ListTypes }[] = [];
+	const l10n = localize(getTranslations(locale as string, ['forms'])).instance('forms');
 	filenames.forEach((filename) => {
 		// remove .json from the end of filenames
-		const form: CleaningList = JSON.parse(
-			readFileSync(path.join(process.cwd(), 'forms', locale as string, filename)).toString()
+		const { type }: CleaningList = JSON.parse(
+			readFileSync(path.join(process.cwd(), 'forms', filename)).toString()
 		);
-		forms.push(form);
+
+		forms.push({ type, title: l10n(`${type}.title`) });
 	});
 
 	return { props: { forms }, revalidate: false };

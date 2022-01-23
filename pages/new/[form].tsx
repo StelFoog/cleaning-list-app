@@ -12,7 +12,7 @@ import LabeledCheck from '../../components/LabeledCheck';
 import Loader from '../../components/Loader';
 import TextInput from '../../components/TextInput';
 import styles from '../../styles/Form.module.css';
-import { CleaningCategory, CleaningList } from '../../types/forms';
+import { CleaningCategory, CleaningList, ListTypes } from '../../types/forms';
 import { submitForm } from '../../util/api';
 import useFormPersist from '../../util/hooks/useFormPersist';
 import { ISO_DATE_NO_DASH } from '../../util/date';
@@ -21,8 +21,11 @@ import useMounted from '../../util/hooks/useMounted';
 import useMuiTheme from '../../util/hooks/useMuiTheme';
 import { toSafe } from '../../util/safePeriod';
 import { toast } from 'react-toastify';
+import { getTranslations } from '../../util/getLocalizations';
+import localize, { Localization } from '../../util/localize';
+import { Translations } from '../../types/Translations';
 
-interface Props {
+interface Props extends Translations {
 	form: CleaningList;
 }
 
@@ -71,6 +74,7 @@ const FormPage: NextPage<Props> = (props) => {
 
 	// In the future this page could and should be expanded to handle other types of forms
 	const formData = props.form;
+	const l10n = localize(props.translations).instance(`forms.${formData.type}`);
 
 	function noAuthentication(): void {
 		toast.warn(
@@ -137,7 +141,7 @@ const FormPage: NextPage<Props> = (props) => {
 	return (
 		<main>
 			{loading && <Loader />}
-			<FormHeading {...formData} />
+			<FormHeading title={l10n('title')} version={formData.version} />
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
@@ -150,7 +154,7 @@ const FormPage: NextPage<Props> = (props) => {
 							type={formData.type}
 							version={formData.version}
 						/>
-						<SuperCategories form={formData} />
+						<SuperCategories form={formData} l10n={l10n} />
 						<div className="contentSplit" />
 						{/* Has to wait for component to render client–side for theme to be applied */}
 						{/* As a side-effect this makes persisted data invisible until the field is interacted with or the form tries to submit */}
@@ -221,22 +225,25 @@ const FormPage: NextPage<Props> = (props) => {
 	);
 };
 
-function SuperCategories({ form }: { form: CleaningList }): JSX.Element {
+function SuperCategories({ form, l10n }: { form: CleaningList; l10n: Localization }): JSX.Element {
 	const { superCategories } = form;
 	const keys = Object.keys(superCategories);
 	return (
 		<>
 			{keys.map((key) => {
 				const val = superCategories[key];
+				const keyInstance = l10n.instance(`superCategories.${key}`);
+				const note = keyInstance('note');
 				return (
 					<div className={styles.superCategory} key={key}>
-						<h3>{val.title}</h3>
+						<h3>{keyInstance(`title`)}</h3>
 						<Categories
 							categories={val.categories}
 							superCategory={key}
 							color={form.meta.colors[key]}
+							l10n={keyInstance}
 						/>
-						{val.note && <span className={styles.note}>{val.note}</span>}
+						{note && <span className={styles.note}>{note}</span>}
 					</div>
 				);
 			})}
@@ -248,29 +255,34 @@ function Categories({
 	categories,
 	superCategory,
 	color,
+	l10n,
 }: {
 	categories: Record<string, CleaningCategory>;
 	superCategory: string;
 	color?: string;
+	l10n: Localization;
 }): JSX.Element {
 	const keys = Object.keys(categories);
 	return (
 		<div>
 			{keys.map((key) => {
 				const val = categories[key];
+				const title = l10n(`categories.${key}.title`);
+				const checksInstance = l10n.instance(`categories.${key}.checks`);
+
 				return (
 					<div key={key}>
-						{val.title && <h4>{val.title}</h4>}
+						{title !== 'title' && <h4>{title}</h4>}
 						{val.checks.map((check) => (
 							<Field
 								key={check}
 								// replace '.' with '\·' as '.' is used to mark a key in an object. Should be converted back before it's displayed for the user
-								name={`checks.${superCategory}.${key}.${toSafe(check)}`}
+								name={`checks.${superCategory}.${key}.${check}`}
 								defaultValue={false}
 								render={({ input, meta }) => (
 									<LabeledCheck
 										key={check}
-										label={check}
+										label={checksInstance(check)}
 										value={input.value}
 										onChange={input.onChange}
 										color={color || undefined}
@@ -289,7 +301,7 @@ function Categories({
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 	// could use '/forms/en/', both should contain the exact same filenames
-	const filenames = readdirSync(path.join(process.cwd(), 'forms', 'sv'));
+	const filenames = readdirSync(path.join(process.cwd(), 'forms'));
 
 	const paths: { params: ParsedUrlQuery; locale: string }[] = [];
 	filenames.forEach((filename) => {
@@ -307,10 +319,12 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 	// We know that params will contain form as a string array since page would be 404 otherwise
 	const form = (params as { form: string }).form;
 	const formData: CleaningList = JSON.parse(
-		readFileSync(path.join(process.cwd(), 'forms', locale as string, `${form}.json`)).toString()
+		readFileSync(path.join(process.cwd(), 'forms', `${form}.json`)).toString()
 	);
 
-	return { props: { form: formData }, revalidate: false };
+	const translations = getTranslations(locale as string, [`forms.${form}`]);
+
+	return { props: { form: formData, translations }, revalidate: false };
 };
 
 export default FormPage;

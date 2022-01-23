@@ -7,24 +7,29 @@ import Loader from '../../components/Loader';
 import styles from '../../styles/SubmittedForm.module.css';
 import { Unchecked, ResData, SubmittedList } from '../../types/db';
 import { CleaningList } from '../../types/forms';
+import { Translations } from '../../types/Translations';
 import { formatDate } from '../../util/date';
+import { getTranslations } from '../../util/getLocalizations';
 import useAxios from '../../util/hooks/useAxios';
+import localize, { Localization } from '../../util/localize';
 import { fromSafe } from '../../util/safePeriod';
 import { documentType } from '../api/type';
 
-interface Props {
+interface Props extends Translations {
 	id: string;
 	form: CleaningList;
 }
 
-const List: NextPage<Props> = ({ id, form }) => {
+const List: NextPage<Props> = ({ id, form, translations }) => {
 	const { data, loading } = useAxios<ResData<SubmittedList>>('get', { params: { id } });
 	const list = data?.value;
+
+	const l10n = localize(translations).instance(`forms.${form.type}`);
 
 	return (
 		<main>
 			{loading && <Loader />}
-			<FormHeading title={form.title} version={form.version} />
+			<FormHeading title={l10n('title')} version={list?.version} />
 			{typeof list === 'object' && (
 				<>
 					<table>
@@ -55,7 +60,7 @@ const List: NextPage<Props> = ({ id, form }) => {
 					</table>
 					{list.omittedChecks &&
 						(Object.keys(list.omittedChecks).length > 0 ? (
-							<OmittedChecks omittedChecks={list.omittedChecks} form={form} />
+							<OmittedChecks omittedChecks={list.omittedChecks} form={form} l10n={l10n} />
 						) : (
 							<h3 style={{ color: '#4a5' }}>All checks completed!</h3>
 						))}
@@ -68,33 +73,42 @@ const List: NextPage<Props> = ({ id, form }) => {
 function OmittedChecks({
 	omittedChecks,
 	form,
+	l10n,
 }: {
 	omittedChecks: Unchecked;
 	form: CleaningList;
+	l10n: Localization;
 }): JSX.Element {
 	return (
 		<>
 			<h3>Omitted checks</h3>
 			<div className={styles.omitted}>
-				{Object.entries(omittedChecks).map(([sc, category]) => (
-					<div key={sc}>
-						<h4>{form.superCategories[sc].title}</h4>
-						<div className={styles.omitted}>
-							{Object.entries(category).map(([cat, checks]) => (
-								<div key={cat}>
-									{form.superCategories[sc].categories[cat].title && (
-										<span>{form.superCategories[sc].categories[cat].title}</span>
-									)}
-									<div className={styles.omitted}>
-										{checks.map((check) => (
-											<span key={check}>{fromSafe(check)}</span>
-										))}
-									</div>
-								</div>
-							))}
+				{Object.entries(omittedChecks).map(([sc, category]) => {
+					const scInstance = l10n.instance(`superCategories.${sc}`);
+
+					return (
+						<div key={sc}>
+							<h4>{scInstance('title')}</h4>
+							<div className={styles.omitted}>
+								{Object.entries(category).map(([cat, checks]) => {
+									const catInstance = scInstance.instance(`categories.${cat}`);
+									const title = catInstance('title');
+
+									return (
+										<div key={cat}>
+											{title && <span>{title}</span>}
+											<div className={styles.omitted}>
+												{checks.map((check) => (
+													<span key={check}>{catInstance(`checks.${check}`)}</span>
+												))}
+											</div>
+										</div>
+									);
+								})}
+							</div>
 						</div>
-					</div>
-				))}
+					);
+				})}
 			</div>
 		</>
 	);
@@ -112,12 +126,12 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 	if (!exists) return { notFound: true, revalidate: 10 };
 
 	const fileData: CleaningList = JSON.parse(
-		readFileSync(
-			path.join(process.cwd(), 'forms', locale as string, `${type as string}.json`)
-		).toString()
+		readFileSync(path.join(process.cwd(), 'forms', `${type as string}.json`)).toString()
 	);
 
-	return { props: { id, form: fileData }, revalidate: 100 };
+	const translations = getTranslations(locale as string, [`forms.${type}`]);
+
+	return { props: { id, form: fileData, translations }, revalidate: 100 };
 };
 
 export default List;
