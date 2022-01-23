@@ -29,7 +29,7 @@ const List: NextPage<Props> = ({ id, form, translations }) => {
 	return (
 		<main>
 			{loading && <Loader />}
-			<FormHeading title={l10n('title')} version={form.version} />
+			<FormHeading title={l10n('title')} version={list?.version} />
 			{typeof list === 'object' && (
 				<>
 					<table>
@@ -126,9 +126,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 	if (!exists) return { notFound: true, revalidate: 10 };
 
 	const fileData: CleaningList = JSON.parse(
-		readFileSync(
-			path.join(process.cwd(), 'forms', locale as string, `${type as string}.json`)
-		).toString()
+		readFileSync(path.join(process.cwd(), 'forms', `${type as string}.json`)).toString()
 	);
 
 	const translations = getTranslations(locale as string, [`forms.${type}`]);
