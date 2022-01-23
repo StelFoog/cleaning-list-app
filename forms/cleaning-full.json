@@ -5,7 +5,7 @@
 		"kistan": {
 			"categories": {
 				"microwaves": {
-					"checks": ["counters", "microwaves-usable", "sinks"]
+					"checks": ["counters", "microwaves-usable", "sinks-cleaned"]
 				},
 				"floors": {
 					"checks": [

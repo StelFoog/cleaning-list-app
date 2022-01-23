@@ -301,7 +301,7 @@ function Categories({
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 	// could use '/forms/en/', both should contain the exact same filenames
-	const filenames = readdirSync(path.join(process.cwd(), 'forms', 'sv'));
+	const filenames = readdirSync(path.join(process.cwd(), 'forms'));
 
 	const paths: { params: ParsedUrlQuery; locale: string }[] = [];
 	filenames.forEach((filename) => {
@@ -319,7 +319,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 	// We know that params will contain form as a string array since page would be 404 otherwise
 	const form = (params as { form: string }).form;
 	const formData: CleaningList = JSON.parse(
-		readFileSync(path.join(process.cwd(), 'forms', /*locale as string,*/ `${form}.json`)).toString()
+		readFileSync(path.join(process.cwd(), 'forms', `${form}.json`)).toString()
 	);
 
 	const translations = getTranslations(locale as string, [`forms.${form}`]);
