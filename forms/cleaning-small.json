@@ -1,0 +1,135 @@
+{
+	"version": "1.0",
+	"type": "cleaning-small",
+	"title": "Städrutin Kistan 2.0 (Mindre)",
+	"superCategories": {
+		"kistan": {
+			"categories": {
+				"microwaves": {
+					"title": "Mikros",
+					"checks": ["counters", "microwaves-usable"]
+				},
+				"floors": {
+					"checks": [
+						"furniture-restored",
+						"table-signs",
+						"tables-wiped",
+						"chairs-upside-down",
+						"floors-sweeped",
+						"floors-mopped",
+						"scene-sweeped",
+						"scene-mopped"
+					]
+				},
+				"trash": {
+					"checks": ["lost-and-found", "trashcans"]
+				},
+				"lasts": {
+					"checks": ["terrace-door", "lightning", "doors", "windows", "all-windows"]
+				}
+			}
+		},
+		"bar": {
+			"categories": {
+				"softDrinks": {
+					"checks": ["coffe-maker-and-milk", "glass-cases", "glass-bins", "everything-closed"]
+				},
+				"surfaces": {
+					"checks": [
+						"all-surfaces",
+						"floors-sweeped",
+						"floors-mopped",
+						"empty-trash",
+						"sink-cleaned",
+						"counter-runoff",
+						"everything-returned"
+					]
+				},
+				"money": {
+					"checks": ["ledger", "z-receipt"]
+				},
+				"lasts": {
+					"title": "Sista rycket",
+					"checks": ["lightning", "computer-and-screen", "jalusei", "alarm"]
+				}
+			}
+		},
+		"kitchen": {
+			"categories": {
+				"dishes": {
+					"checks": ["dishes-done", "dry-dishes-placed", "dishwasher-shut-down", "dishwasher-parts"]
+				},
+				"cleaning": {
+					"checks": [
+						"coffe-makers-empty",
+						"sink-cleaned",
+						"tiled-walls",
+						"counters",
+						"ovens",
+						"stove",
+						"heating-cabinet"
+					]
+				},
+				"floor": {
+					"checks": ["floors-sweeped", "floors-mopped", "all-trash", "leftovers"]
+				},
+				"lasts": {
+					"title": "Sista rycket",
+					"checks": ["kitchen-window", "storage-stuffs", "counters-empty"]
+				}
+			}
+		},
+		"outside": {
+			"categories": {
+				"all": {
+					"checks": [
+						"street-sign",
+						"toilets",
+						"posters",
+						"trash-compressor",
+						"empty-bottles",
+						"clean-littering"
+					]
+				}
+			}
+		},
+		"hallway": {
+			"categories": {
+				"all": {
+					"checks": ["floors-sweeped", "floors-mopped", "lost-and-found", "storage-stuffs"]
+				}
+			}
+		},
+		"broomCloset": {
+			"categories": {
+				"all": {
+					"checks": [
+						"buckets",
+						"mops-cleaned",
+						"dishing-equipment",
+						"brooms-cleaned",
+						"floors-scraped"
+					]
+				}
+			}
+		},
+		"spritis": {
+			"categories": {
+				"all": {
+					"checks": ["no-personal-things", "nothing-in-paths", "floors", "storage-stuffs"]
+				}
+			}
+		}
+	},
+	"meta": {
+		"colors": {
+			"kistan": "#2980b9",
+			"bar": "#e67e22",
+			"kitchen": "#9b59b6",
+			"outside": "#00b894",
+			"hallway": "#fab1a0",
+			"broomCloset": "#34e7e4",
+			"spritis": "#ef5777"
+		}
+	}
+}

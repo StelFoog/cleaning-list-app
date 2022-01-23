@@ -1,0 +1,23 @@
+{
+	"forms": {},
+	"pages": {
+		"home": {
+			"meta-title": "Cleaning list app",
+			"meta-desc": "Digitaliserade versionen av Kistan 2.0s städrutiner",
+			"title": "Cleaning List",
+			"authenticate": "Autentisera",
+			"authentication-error": "Ogilitig autetniseringsnyckel",
+			"new-from": "Nytt formulär",
+			"submitted-forms": "Lämnade formulär",
+			"settings": "Inställningar"
+		},
+		"settings": {
+			"remove-authentication": "Remove authentication",
+			"dark-mode": "Use dark-mode"
+		}
+	},
+	"general": {
+		"required": "Krävs",
+		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan"
+	}
+}
