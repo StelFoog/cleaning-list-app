@@ -451,6 +451,22 @@
 		"settings": {
 			"remove-authentication": "Remove authentication",
 			"dark-mode": "Use dark-mode"
+		},
+		"new-form-list": {
+			"title": "Forms"
+		},
+		"new-form": {
+			"name": "Name",
+			"phone": "Phone number",
+			"event-date": "Date of Event",
+			"host": "Host",
+			"note": "Note",
+			"submit": "Submit",
+			"invalid-date": "INvalid date",
+			"required-note": "Required, must explain why checks were left unchecked",
+			"no-auth": "Not authenticated!",
+			"everything-saved": "Don't worry, everything will still be where you left it 🙂",
+			"successful-submit": "Submitted sucessfully 👍"
 		}
 	},
 	"general": {

@@ -12,14 +12,13 @@ import LabeledCheck from '../../components/LabeledCheck';
 import Loader from '../../components/Loader';
 import TextInput from '../../components/TextInput';
 import styles from '../../styles/Form.module.css';
-import { CleaningCategory, CleaningList, ListTypes } from '../../types/forms';
+import { CleaningCategory, CleaningList } from '../../types/forms';
 import { submitForm } from '../../util/api';
 import useFormPersist from '../../util/hooks/useFormPersist';
 import { ISO_DATE_NO_DASH } from '../../util/date';
 import useAuth from '../../util/hooks/useAuth';
 import useMounted from '../../util/hooks/useMounted';
 import useMuiTheme from '../../util/hooks/useMuiTheme';
-import { toSafe } from '../../util/safePeriod';
 import { toast } from 'react-toastify';
 import { getTranslations } from '../../util/getLocalizations';
 import localize, { Localization } from '../../util/localize';
@@ -74,14 +73,17 @@ const FormPage: NextPage<Props> = (props) => {
 
 	// In the future this page could and should be expanded to handle other types of forms
 	const formData = props.form;
-	const l10n = localize(props.translations).instance(`forms.${formData.type}`);
+	const l10n = localize(props.translations);
+	const pageInstance = l10n.instance('pages.new-form');
+	const formInstance = l10n.instance(`forms.${formData.type}`);
+	const required = l10n('general.required');
 
 	function noAuthentication(): void {
 		toast.warn(
 			<div>
-				<span>{'Not authenticated!'}</span>
+				<span>{pageInstance('no-auth')}</span>
 				<br />
-				<span>{"Don't worry, everything will still be where you left it 🙂"}</span>
+				<span>{pageInstance('everything-saved')}</span>
 			</div>
 		);
 		router.push(`/?back=${router.asPath}`);
@@ -110,7 +112,7 @@ const FormPage: NextPage<Props> = (props) => {
 			if (res?.value) {
 				clearPersistance();
 				setLoading(false);
-				toast.success('Submitted sucessfully 👍');
+				toast.success(pageInstance('successful-submit'));
 				router.push('/');
 			} else {
 				if (res?.deauthenticated) noAuthentication();
@@ -123,17 +125,17 @@ const FormPage: NextPage<Props> = (props) => {
 		const values = formValues as FormValues;
 
 		const errors: ValidationErrors = {};
-		if (!values.name) errors.name = 'Required';
-		if (!values.phone) errors.phone = 'Required';
-		if (!values.eventDate?.match(ISO_DATE_NO_DASH)) errors.eventDate = 'Invalid date';
-		if (!values.eventDate) errors.eventDate = 'Required';
-		if (!values.host) errors.host = 'Required';
+		if (!values.name) errors.name = required;
+		if (!values.phone) errors.phone = required;
+		if (!values.eventDate?.match(ISO_DATE_NO_DASH)) errors.eventDate = pageInstance('invalid-date');
+		if (!values.eventDate) errors.eventDate = required;
+		if (!values.host) errors.host = required;
 		// Check if we're missing both a note or any checks
 		if (
 			(!values.note && !values.checks) ||
 			(!values.note && Object.keys(allUnchecked(values.checks as unknown as Checks)).length)
 		)
-			errors.note = 'Required, must explain why checks were left unchecked';
+			errors.note = pageInstance('required-note');
 
 		return errors;
 	}
@@ -141,7 +143,7 @@ const FormPage: NextPage<Props> = (props) => {
 	return (
 		<main>
 			{loading && <Loader />}
-			<FormHeading title={l10n('title')} version={formData.version} />
+			<FormHeading title={formInstance('title')} version={formData.version} />
 			<Form
 				onSubmit={onSubmit}
 				validate={validate}
@@ -154,7 +156,7 @@ const FormPage: NextPage<Props> = (props) => {
 							type={formData.type}
 							version={formData.version}
 						/>
-						<SuperCategories form={formData} l10n={l10n} />
+						<SuperCategories form={formData} formInstance={formInstance} />
 						<div className="contentSplit" />
 						{/* Has to wait for component to render client–side for theme to be applied */}
 						{/* As a side-effect this makes persisted data invisible until the field is interacted with or the form tries to submit */}
@@ -166,7 +168,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label="Name"
+											label={pageInstance('name')}
 										/>
 									)}
 								/>
@@ -176,7 +178,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label="Telephone number"
+											label={pageInstance('phone')}
 										/>
 									)}
 								/>
@@ -186,7 +188,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label="Date of event"
+											label={pageInstance('event-date')}
 											format="####-##-##"
 											mask={['Y', 'Y', 'Y', 'Y', 'M', 'M', 'D', 'D']}
 											placeholder="YYYY-MM-DD"
@@ -199,7 +201,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label="Host"
+											label={pageInstance('host')}
 										/>
 									)}
 								/>
@@ -209,7 +211,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label="Note"
+											label={pageInstance('note')}
 											multiline
 										/>
 									)}
@@ -217,7 +219,7 @@ const FormPage: NextPage<Props> = (props) => {
 							</ThemeProvider>
 						)}
 						<div className="contentSplit" />
-						<button type="submit">Submit</button>
+						<button type="submit">{pageInstance('submit')}</button>
 					</form>
 				)}
 			/>
@@ -225,14 +227,20 @@ const FormPage: NextPage<Props> = (props) => {
 	);
 };
 
-function SuperCategories({ form, l10n }: { form: CleaningList; l10n: Localization }): JSX.Element {
+function SuperCategories({
+	form,
+	formInstance,
+}: {
+	form: CleaningList;
+	formInstance: Localization;
+}): JSX.Element {
 	const { superCategories } = form;
 	const keys = Object.keys(superCategories);
 	return (
 		<>
 			{keys.map((key) => {
 				const val = superCategories[key];
-				const keyInstance = l10n.instance(`superCategories.${key}`);
+				const keyInstance = formInstance.instance(`superCategories.${key}`);
 				const note = keyInstance('note');
 				return (
 					<div className={styles.superCategory} key={key}>
@@ -241,7 +249,7 @@ function SuperCategories({ form, l10n }: { form: CleaningList; l10n: Localizatio
 							categories={val.categories}
 							superCategory={key}
 							color={form.meta.colors[key]}
-							l10n={keyInstance}
+							formInstance={keyInstance}
 						/>
 						{note && <span className={styles.note}>{note}</span>}
 					</div>
@@ -255,20 +263,20 @@ function Categories({
 	categories,
 	superCategory,
 	color,
-	l10n,
+	formInstance,
 }: {
 	categories: Record<string, CleaningCategory>;
 	superCategory: string;
 	color?: string;
-	l10n: Localization;
+	formInstance: Localization;
 }): JSX.Element {
 	const keys = Object.keys(categories);
 	return (
 		<div>
 			{keys.map((key) => {
 				const val = categories[key];
-				const title = l10n(`categories.${key}.title`);
-				const checksInstance = l10n.instance(`categories.${key}.checks`);
+				const title = formInstance(`categories.${key}.title`);
+				const checksInstance = formInstance.instance(`categories.${key}.checks`);
 
 				return (
 					<div key={key}>
@@ -322,7 +330,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 		readFileSync(path.join(process.cwd(), 'forms', `${form}.json`)).toString()
 	);
 
-	const translations = getTranslations(locale as string, [`forms.${form}`]);
+	const translations = getTranslations(locale as string, [
+		`forms.${form}`,
+		'pages.new-form',
+		'general.required',
+	]);
 
 	return { props: { form: formData, translations }, revalidate: false };
 };

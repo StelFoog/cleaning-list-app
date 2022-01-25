@@ -451,6 +451,22 @@
 		"settings": {
 			"remove-authentication": "Ta bort autentisering",
 			"dark-mode": "Använd mörkt tema"
+		},
+		"new-form-list": {
+			"title": "Formulär"
+		},
+		"new-form": {
+			"name": "Namn",
+			"phone": "Telefonnummer",
+			"event-date": "Eventdatum",
+			"host": "Värd",
+			"note": "Anmärkning",
+			"submit": "Skicka in",
+			"invalid-date": "Ogiltigt datum",
+			"required-note": "Krävs, måste förklara varför object lämnades ofyllda",
+			"no-auth": "Inte autentiserad!",
+			"everything-saved": "Oroa dig inte, allt kommer va kvar där du lämnade det 🙂",
+			"successful-submit": "INskickning lyckades 👍"
 		}
 	},
 	"general": {
