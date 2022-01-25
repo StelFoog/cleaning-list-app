@@ -1,5 +1,5 @@
 import { ChevronRightIcon, FileIcon, GearIcon, Icon, InboxIcon } from '@primer/octicons-react';
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../styles/Home.module.css';
@@ -13,46 +13,62 @@ import useMuiTheme from '../util/hooks/useMuiTheme';
 import useMounted from '../util/hooks/useMounted';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
+import { Translations } from '../types/Translations';
+import { getTranslations } from '../util/getLocalizations';
+import localize, { Localization } from '../util/localize';
 
-const Home: NextPage = () => {
+const Home: NextPage<Translations> = ({ translations }) => {
 	const [auth, newAuth] = useAuth();
+
+	// console.log(translations);
+
+	const l10n = localize(translations);
+	const pageInstance = l10n.instance('pages.home');
 
 	return (
 		<>
 			<Head>
-				<title>Cleaning List App</title>
-				<meta name="description" content="A digitalization of the Kistan 2.0 cleaning list" />
+				<title>{pageInstance('meta-title')}</title>
+				<meta name="description" content={pageInstance('meta-desc')} />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<main>
 				{auth === null && <Loader />}
-				<h1>Cleaning List</h1>
+				<h1>{pageInstance('title')}</h1>
 				<div className={`expand ${!auth && 'center'}`}>
-					{!auth && <AddAuthentication newAuth={newAuth} />}
-					{auth && <Authenticated />}
+					{!auth && <AddAuthentication newAuth={newAuth} l10n={l10n} />}
+					{auth && <Authenticated pageInstance={pageInstance} />}
 				</div>
 			</main>
 		</>
 	);
 };
 
-function AddAuthentication({ newAuth }: { newAuth: NewAuth }): JSX.Element {
+function AddAuthentication({
+	newAuth,
+	l10n,
+}: {
+	newAuth: NewAuth;
+	l10n: Localization;
+}): JSX.Element {
 	const router = useRouter();
 	const muiTheme = useMuiTheme();
 	const mounted = useMounted();
 
+	const pageInstance = l10n.instance('pages.home');
+
 	async function onSubmit({ auth }: { auth: string }): Promise<SubmissionErrors | void> {
 		const result = await newAuth(auth);
 		if (!result) {
-			toast.error('INvalid authentication key');
-			return { auth: 'INvalid authentication key' };
+			toast.error(pageInstance('authentication-error'));
+			return { auth: pageInstance('authentication-error') };
 		} else if (typeof router.query.back === 'string') router.push(router.query.back);
 	}
 
 	function validate({ auth }: { auth: string }) {
 		const errors: { auth?: string } = {};
-		if (!auth) errors.auth = 'Required';
+		if (!auth) errors.auth = l10n('general.required');
 		return errors;
 	}
 
@@ -79,19 +95,19 @@ function AddAuthentication({ newAuth }: { newAuth: NewAuth }): JSX.Element {
 						</ThemeProvider>
 					)}
 					<div className="contentSplit" />
-					<button type="submit">Authenticate</button>
+					<button type="submit">{pageInstance('authenticate')}</button>
 				</form>
 			)}
 		/>
 	);
 }
 
-function Authenticated(): JSX.Element {
+function Authenticated({ pageInstance }: { pageInstance: Localization }): JSX.Element {
 	return (
 		<ul className={styles.list}>
-			<Option Icon={FileIcon} text="New Form" link="/new" />
-			<Option Icon={InboxIcon} text="Submitted Forms" link="/submitted" />
-			<Option Icon={GearIcon} text="Settings" link="/settings" />
+			<Option Icon={FileIcon} text={pageInstance('new-form')} link="/new" />
+			<Option Icon={InboxIcon} text={pageInstance('submitted-forms')} link="/submitted" />
+			<Option Icon={GearIcon} text={pageInstance('settings')} link="/settings" />
 		</ul>
 	);
 }
@@ -108,5 +124,11 @@ function Option({ Icon, text, link }: { Icon: Icon; text: string; link: string }
 		</Link>
 	);
 }
+
+export const getStaticProps: GetStaticProps<Translations> = async ({ locale }) => {
+	const translations = getTranslations(locale as string, ['pages.home', 'general.required']);
+
+	return { props: { translations } };
+};
 
 export default Home;
