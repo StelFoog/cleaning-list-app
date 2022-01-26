@@ -441,20 +441,47 @@
 		"home": {
 			"meta-title": "Cleaning list app",
 			"meta-desc": "Digitaliserade versionen av Kistan 2.0s städrutiner",
-			"title": "Cleaning List",
+			"title": "CleanINg List",
 			"authenticate": "Autentisera",
 			"authentication-error": "Ogilitig autetniseringsnyckel",
-			"new-from": "Nytt formulär",
-			"submitted-forms": "Lämnade formulär",
+			"new-form": "Nytt formulär",
+			"submitted-forms": "INlämnade formulär",
 			"settings": "Inställningar"
 		},
 		"settings": {
+			"title": "Inställningar",
 			"remove-authentication": "Ta bort autentisering",
-			"dark-mode": "Använd mörk tema"
+			"dark-mode": "Använd mörkt tema",
+			"translate": "English"
+		},
+		"new-form-list": {
+			"title": "Formulär"
+		},
+		"new-form": {
+			"submit": "Skicka in",
+			"invalid-date": "Ogiltigt datum",
+			"required-note": "Krävs, måste förklara varför object lämnades ofyllda",
+			"no-auth": "Inte autentiserad!",
+			"everything-saved": "Oroa dig inte, allt kommer va kvar där du lämnade det 🙂",
+			"successful-submit": "INskickning lyckades 👍"
+		},
+		"submitted-form-list": {
+			"title": "INskickade formulär"
+		},
+		"submitted-form": {
+			"all-checks-complete": "Allting ifyllt!",
+			"omitted-checks": "Utelämnade objekt"
 		}
 	},
 	"general": {
 		"required": "Krävs",
-		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan"
+		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan",
+		"input": {
+			"name": "Namn",
+			"phone": "Telefonnummer",
+			"event-date": "Eventdatum",
+			"host": "Värd",
+			"note": "Anmärkning"
+		}
 	}
 }

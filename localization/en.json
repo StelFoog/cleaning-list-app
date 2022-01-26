@@ -1,23 +1,487 @@
 {
-	"forms": {},
+	"forms": {
+		"cleaning-full": {
+			"title": "Städrutin Kistan 2.0 (Fullständig)",
+			"superCategories": {
+				"kistan": {
+					"title": "Kistan 2.0",
+					"categories": {
+						"microwaves": {
+							"title": "Mikros",
+							"checks": {
+								"counters": "Bänkarna vid mikrovågsugnarna torkade",
+								"microwaves-usable": "Alla mikrovågsugnar i användbart skick",
+								"sinks-cleaned": "Diskhoarna rengjorda"
+							}
+						},
+						"floors": {
+							"title": "Golv och Bord",
+							"checks": {
+								"furniture-restored": "Möblering återställd enligt ritning",
+								"table-signs": "Bordsskyltar inplockade",
+								"tables-wiped": "Borden torkade",
+								"chairs-upside-down": "Stolarna uppställda upp och ned",
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat",
+								"scene-sweeped": "Scenen sopad",
+								"scene-mopped": "Scenen moppad med snålt med vatten"
+							}
+						},
+						"trash": {
+							"title": "Kvarglömt/Sopor",
+							"checks": {
+								"lost-and-found": "Samla in kvarglömda saker och lägg i lost and found lådan",
+								"trashcans": "ALLA sopor slängda och nya soppåsar i tunnorna"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"terrace-door": "Terrasdörren låst",
+								"lightning": "Belysningen avstängd",
+								"doors": "Dörrarna stängda",
+								"windows": "Fönstrena stängda och låsta",
+								"all-windows": "ALLA fönster stängda"
+							}
+						}
+					},
+					"note": null
+				},
+				"bar": {
+					"title": "Baren",
+					"categories": {
+						"back": {
+							"title": "Kylar/Tomglas",
+							"checks": {
+								"glass-cases": "Fulla tomglasbackar ställda i spritförådet",
+								"glass-bins": "Tomglastunnorna tömda",
+								"fridge-doors-washed": "Kyldörrar tvättade efter behov",
+								"everything-closed": "Se till att alla kyldörrar och lådor är ordentligt stängda"
+							}
+						},
+						"surfaces": {
+							"title": "Bänkar/Golv/Sopor",
+							"checks": {
+								"all-surfaces": "Alla ytor tomma och torkade",
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat",
+								"empty-trash": "Tömma soppåsarna",
+								"sink-cleaned": "Vasken rengjord",
+								"counter-runoff": "Tömma avrinningen från batteriet under bardisken",
+								"everything-returned": "Allt tillbaka på sin plats"
+							}
+						},
+						"money": {
+							"title": "Pengar/Liggaren",
+							"checks": {
+								"ledger": "Kontrollerat att alla är utskrivna ur liggaren",
+								"z-receipt": "Z-Kvitto draget och ny växel i kassan"
+							}
+						},
+						"alcohol": {
+							"title": "Alkohol",
+							"checks": {
+								"bar-equipment": "All barutrustning handdiskade",
+								"bottled-bottles": "Korkar på alla flaskor",
+								"mixers-removed": "Groggvirke tömt ur batteriet",
+								"taps-flushed": "Tappen spolad och rengjord",
+								"tap-handles-flushed": "Skruva loss handtagen på tappen. Häll tre mätglas genom hålen",
+								"tap-filter": "Rengör tappens filter"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"lightning": "Belysningen avstängd",
+								"slutsteg": "Slutstegen avstängda",
+								"jalusei": "Jalusi neddragen och dörren låst",
+								"alarm": "LARMA!"
+							}
+						}
+					},
+					"note": null
+				},
+				"kitchen": {
+					"title": "Köket",
+					"categories": {
+						"dishes": {
+							"title": "Disk",
+							"checks": {
+								"dishes-done": "All disk diskad",
+								"dry-dishes-placed": "All torr disk ställd på sin plats",
+								"dishwasher-shut-down": "Diskmaskinen tömd, rengjord och avstängd",
+								"dishwasher-parts": "Alla delar till diskmaskinen rengjorda"
+							}
+						},
+						"cleaning": {
+							"title": "Rengöring",
+							"checks": {
+								"coffe-makers-empty": "Kaffekokare i köket avstängda och tömda på kaffe och sump",
+								"coffe-makers-clean": "Kaffekokare rengjorda",
+								"sink-cleaned": "Diskhon rengjord",
+								"tiled-walls": "De kaklade väggarna torkade",
+								"counters": "Alla bänkarna torkade och tomma",
+								"ovens": "Ugnarna rengjorda",
+								"stove": "Spisen rengjord",
+								"heating-cabinet": "Värmeskåpet rengjort"
+							}
+						},
+						"floor": {
+							"title": "Sopor/Golv",
+							"checks": {
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat",
+								"all-trash": "ALLA sopor slängda och inga nya påsar uppsatta",
+								"leftovers": "Matrester i burkar i kylskåpet"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"kitchen-window": "Köksfönstret stängt",
+								"storage-stuffs": "Eventuellt material från förrådet skall vara tillbaka, INTE lämnas i köket.",
+								"counters-empty": "Alla bänkytor tomma"
+							}
+						}
+					},
+					"note": "OBS: VIKTIGT ATT MATRESTER OCH KLADD ÄR BORTA! ANNARS BLIR DET SKADEDJUR!"
+				},
+				"outside": {
+					"title": "Utanför Kistan 2.0",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"street-sign": "Gatuskrikarna inplockade",
+								"toilets": "Toaletterna utanför Kistan 2.0 städade efter behov",
+								"posters": "Eventaffischer nedplockade",
+								"trash-compressor": "Sopor slängda i kompressorn",
+								"empty-bottles": "Tomglas slängda",
+								"clean-littering": "Rengöra eventuell nedskräpning mellan Kistan 2.0 och toaletterna"
+							}
+						}
+					},
+					"note": null
+				},
+				"hallway": {
+					"title": "Korridoren Kistan 2.0",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat",
+								"nothing-left": "Inga saker kvar i korridoren",
+								"lost-and-found": "Eventuella kvarglömda saker i lost and found",
+								"storage-stuffs": "Eventuellt material från andra förråd ska vara tillbaka, INTE lämnas i korridoren."
+							}
+						}
+					},
+					"note": null
+				},
+				"broomCloset": {
+					"title": "Städskrubben",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"buckets": "Hinkar rengjorda och ställt upp och ned på nedersta hyllan",
+								"mops-cleaned": "Moppar ursköljda, urvridna och upphängda på rätt plats",
+								"dishing-equipment": "Diskhandskar, diskborstar och disksvampar (som ej är till köket) ursköljda och liggandes nedersta hyllan",
+								"brooms-cleaned": "Sopborstar rengjorda och hängandes på rätt plats",
+								"sink-cleaned": "Tvätthon rengjord",
+								"glass-and-porcelain": "Tomglas/porslin och andra sopor slängda",
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat",
+								"floors-scraped": "Golvet skrapat så att inget vatten finns på golvet"
+							}
+						}
+					},
+					"note": null
+				},
+				"spritis": {
+					"title": "Spritförrådet",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"no-personal-things": "INGA personliga ägodelar kvar",
+								"nothing-in-paths": "Inget i gångarna",
+								"floors": "Golvet sopat och moppat efter behov",
+								"storage-stuffs": "Eventuellt material från andra förråd ska vara tillbaka, INTE lämnas i spritförrådet."
+							}
+						}
+					},
+					"note": null
+				},
+				"storeroom": {
+					"title": "Förrådet",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"things-returned": "Allt material som har använts skall läggas tillbaka i rätt låda/vagn",
+								"no-boxes-on-floor": "Inga lådor kvar på golvet",
+								"nothing-on-floor": "Ingenting liggandes på golvet",
+								"floors-sweeped": "Sopat efter behov",
+								"floors-mopped": "Moppat efter behov"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"door-shut": "Dörr stängd"
+							}
+						}
+					},
+					"note": null
+				}
+			}
+		},
+		"cleaning-small": {
+			"title": "Städrutin Kistan 2.0 (Mindre)",
+			"superCategories": {
+				"kistan": {
+					"title": "Kistan 2.0",
+					"categories": {
+						"microwaves": {
+							"title": "Mikros",
+							"checks": {
+								"counters": "Bänkarna vid mikrovågsugnarna torkade",
+								"microwaves-usable": "Alla mikrovågsugnar i användbart skick"
+							}
+						},
+						"floors": {
+							"title": "Golv och Bord",
+							"checks": {
+								"furniture-restored": "Möblering återställd enligt ritning",
+								"table-signs": "Bordsskyltar inplockade",
+								"tables-wiped": "Borden torkade",
+								"chairs-upside-down": "Stolarna uppställda upp och ned",
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat efter behov",
+								"scene-sweeped": "Scenen sopad",
+								"scene-mopped": "Scenen moppad med snålt med vatten efter behov"
+							}
+						},
+						"trash": {
+							"title": "Kvarglömt/Sopor",
+							"checks": {
+								"lost-and-found": "Samla in kvarglömda saker och lägg i lost and found lådan",
+								"trashcans": "ALLA sopor slängda och nya soppåsar i tunnorna"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"terrace-door": "Terrasdörren låst",
+								"lightning": "Belysningen avstängd",
+								"doors": "Dörrarna stängda",
+								"windows": "Fönstrena stängda och låsta",
+								"all-windows": "ALLA fönster stängda"
+							}
+						}
+					},
+					"note": null
+				},
+				"bar": {
+					"title": "Baren",
+					"categories": {
+						"softDrinks": {
+							"title": "Läsk/Kaffe",
+							"checks": {
+								"coffe-maker-and-milk": "Kaffemaskinen och mjölkskummaren rengjorda. Mjölkskummaren tömd",
+								"glass-cases": "Fulla tomglasbackar ställda i spritförådet",
+								"glass-bins": "Tomglastunnorna tömda",
+								"everything-closed": "Se till att alla kyldörrar och lådor är ordentligt stängda"
+							}
+						},
+						"surfaces": {
+							"title": "Bänkar/Golv/Sopor",
+							"checks": {
+								"all-surfaces": "Alla ytor tomma och torkade",
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat efter behov",
+								"empty-trash": "Tömma soppåsarna",
+								"sink-cleaned": "Vasken rengjord",
+								"counter-runoff": "Tömma avrinningen från batteriet under bardisken",
+								"everything-returned": "Allt tillbaka på sin plats"
+							}
+						},
+						"money": {
+							"title": "Pengar/Liggaren",
+							"checks": {
+								"ledger": "Kontrollerat att alla är utskrivna ur liggaren",
+								"z-receipt": "Z-Kvitto draget och ny växel i kassan"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"lightning": "Belysningen avstängd",
+								"computer-and-screen": "Skärmar och dator avstängd",
+								"jalusei": "Jalusi neddragen och dörren låst",
+								"alarm": "LARMA!"
+							}
+						}
+					},
+					"note": null
+				},
+				"kitchen": {
+					"title": "Köket (om det har använts)",
+					"categories": {
+						"dishes": {
+							"title": "Disk",
+							"checks": {
+								"dishes-done": "All disk diskad",
+								"dry-dishes-placed": "All torr disk ställd på sin plats",
+								"dishwasher-shut-down": "Diskmaskinen tömd, rengjord och avstängd",
+								"dishwasher-parts": "Alla delar till diskmaskinen rengjorda"
+							}
+						},
+						"cleaning": {
+							"title": "Rengöring",
+							"checks": {
+								"coffe-makers-empty": "Kaffekokare i köket avstängda och tömda på kaffe och sump",
+								"sink-cleaned": "Diskhon rengjord",
+								"tiled-walls": "De kaklade väggarna torkade",
+								"counters": "Alla bänkarna torkade och tomma",
+								"ovens": "Ugnarna rengjorda",
+								"stove": "Spisen rengjord",
+								"heating-cabinet": "Värmeskåpet rengjort"
+							}
+						},
+						"floor": {
+							"title": "Sopor/Golv",
+							"checks": {
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat efter behov",
+								"all-trash": "ALLA sopor slängda och inga nya påsar uppsatta",
+								"leftovers": "Matrester i burkar i kylskåpet"
+							}
+						},
+						"lasts": {
+							"title": "Sista rycket",
+							"checks": {
+								"kitchen-window": "Köksfönstret stängt",
+								"storage-stuffs": "Eventuellt material från förrådet skall vara tillbaka, INTE lämnas i köket.",
+								"counters-empty": "Alla bänkytor tomma"
+							}
+						}
+					},
+					"note": "OBS: VIKTIGT ATT MATRESTER OCH KLADD ÄR BORTA! ANNARS BLIR DET SKADEDJUR!"
+				},
+				"outside": {
+					"title": "Utanför Kistan 2.0",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"street-sign": "Gatuskrikarna inplockade",
+								"toilets": "Toaletterna utanför Kistan 2.0 städade efter behov",
+								"posters": "Eventaffischer nedplockade",
+								"trash-compressor": "Sopor slängda i kompressorn",
+								"empty-bottles": "Tomglas slängda",
+								"clean-littering": "Rengöra eventuell nedskräpning mellan Kistan 2.0 och toaletterna"
+							}
+						}
+					},
+					"note": null
+				},
+				"hallway": {
+					"title": "Korridoren Kistan 2.0",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"floors-sweeped": "Golvet sopat",
+								"floors-mopped": "Golvet moppat efter behov",
+								"lost-and-found": "Eventuella kvarglömda saker i lost and found",
+								"storage-stuffs": "Eventuellt material från andra förråd ska vara tillbaka, INTE lämnas i korridoren."
+							}
+						}
+					},
+					"note": null
+				},
+				"broomCloset": {
+					"title": "Städskrubben",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"buckets": "Hinkar rengjorda och ställt upp och ned på nedersta hyllan",
+								"mops-cleaned": "Moppar ursköljda, urvridna och upphängda på rätt plats om de använts",
+								"dishing-equipment": "Diskhandskar, diskborstar och disksvampar (som ej är till köket) ursköljda och liggandes nedersta hyllan",
+								"brooms-cleaned": "Sopborstar rengjorda och hängandes på rätt plats",
+								"floors-scraped": "Golvet skrapat så att inget vatten finns på golvet"
+							}
+						}
+					},
+					"note": null
+				},
+				"spritis": {
+					"title": "Spritförrådet",
+					"categories": {
+						"all": {
+							"title": null,
+							"checks": {
+								"no-personal-things": "INGA personliga ägodelar kvar",
+								"nothing-in-paths": "Inget i gångarna",
+								"floors": "Golvet sopat och moppat efter behov",
+								"storage-stuffs": "Eventuellt material från andra förråd ska vara tillbaka, INTE lämnas i spritförrådet."
+							}
+						}
+					},
+					"note": null
+				}
+			}
+		}
+	},
 	"pages": {
 		"home": {
 			"meta-title": "Cleaning list app",
-			"meta-desc": "Digitaliserade versionen av Kistan 2.0s städrutiner",
-			"title": "Cleaning List",
-			"authenticate": "Autentisera",
-			"authentication-error": "Ogilitig autetniseringsnyckel",
-			"new-from": "Nytt formulär",
-			"submitted-forms": "Lämnade formulär",
-			"settings": "Inställningar"
+			"meta-desc": "Digitalized versionen of Kistan 2.0s cleaning lists",
+			"title": "CleanINg List",
+			"authenticate": "Authenticate",
+			"authentication-error": "INvalid authentication key",
+			"new-form": "New Form",
+			"submitted-forms": "Submitted Forms",
+			"settings": "Settings"
 		},
 		"settings": {
+			"title": "Settings",
 			"remove-authentication": "Remove authentication",
-			"dark-mode": "Use dark-mode"
+			"dark-mode": "Use dark-mode",
+			"translate": "Svenska"
+		},
+		"new-form-list": {
+			"title": "Forms"
+		},
+		"new-form": {
+			"submit": "Submit",
+			"invalid-date": "INvalid date",
+			"required-note": "Required, must explain why checks were left unchecked",
+			"no-auth": "Not authenticated!",
+			"everything-saved": "Don't worry, everything will still be where you left it 🙂",
+			"successful-submit": "Submitted sucessfully 👍"
+		},
+		"submitted-form-list": {
+			"title": "Submitted Forms"
+		},
+		"submitted-form": {
+			"all-checks-complete": "All checks completed!",
+			"omitted-checks": "Omitted checks"
 		}
 	},
 	"general": {
-		"required": "Krävs",
-		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan"
+		"required": "Required",
+		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan",
+		"input": {
+			"name": "Name",
+			"phone": "Phone number",
+			"event-date": "Date of Event",
+			"host": "Host",
+			"note": "Note"
+		}
 	}
 }

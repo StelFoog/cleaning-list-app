@@ -17,17 +17,19 @@ const SubmittedList: NextPage<Translations> = ({ translations }) => {
 
 	const documents = data?.value;
 
-	const l10n = localize(translations).instance('forms');
+	const l10n = localize(translations);
+	const pageInstance = l10n.instance('pages.submitted-form-list');
+	const formsInstance = l10n.instance('forms');
 
 	return (
 		<>
 			<main>
 				{loading && <Loader />}
-				<h1>Submitted Forms</h1>
+				<h1>{pageInstance('title')}</h1>
 				{documents && documents instanceof Array && (
 					<ul className={styles.list}>
 						{documents.map((doc) => (
-							<Item key={doc._id.toString()} form={doc} l10n={l10n} />
+							<Item key={doc._id.toString()} form={doc} formsInstance={formsInstance} />
 						))}
 					</ul>
 				)}
@@ -36,13 +38,19 @@ const SubmittedList: NextPage<Translations> = ({ translations }) => {
 	);
 };
 
-function Item({ form, l10n }: { form: ListableForm; l10n: Localization }): JSX.Element {
+function Item({
+	form,
+	formsInstance,
+}: {
+	form: ListableForm;
+	formsInstance: Localization;
+}): JSX.Element {
 	return (
 		<Link href={`/submitted/${form._id}`} passHref>
 			<li className={styles.item}>
 				<div>
 					<div className={styles.itemContentUpper}>
-						{l10n(`${form.type}.title`)}
+						{formsInstance(`${form.type}.title`)}
 						<span className={styles.itemVersion}>(v{form.version})</span>
 					</div>
 					<div className={styles.itemContentLower}>
@@ -58,10 +66,10 @@ function Item({ form, l10n }: { form: ListableForm; l10n: Localization }): JSX.E
 
 export const getStaticProps: GetStaticProps<Translations> = async ({ locale }) => {
 	const filenames = readdirSync(path.join(process.cwd(), 'forms'));
-	const translations = getTranslations(
-		locale as string,
-		filenames.map((file) => `forms.${file.slice(0, -5)}.title`)
-	);
+	const translations = getTranslations(locale as string, [
+		...filenames.map((file) => `forms.${file.slice(0, -5)}.title`),
+		'pages.submitted-form-list',
+	]);
 
 	return { props: { translations } };
 };

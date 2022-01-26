@@ -10,8 +10,8 @@ It's deployed using vercel and curently live at [cleaning-list.vercel.app](https
 
 - [x] Complete full swedish cleaninglist
 - [ ] Complete english version of cleaninglist
-- [ ] Swedish version of app
-- [ ] Language switcher
+- [x] Swedish version of app
+- [x] Language switcher
 - [ ] ~~Validate that english and swedish forms contain the same data~~
 - [ ] Smaller version of cleaninglist in English
 - [x] Add persistance to forms

@@ -2,9 +2,7 @@
 module.exports = {
 	reactStrictMode: true,
 	i18n: {
-		// Re-add locales when localizations are fully supported
-		// locales: ['sv', 'en'],
-		locales: ['sv'],
+		locales: ['sv', 'en'],
 		defaultLocale: 'sv',
 		localeDetection: false,
 	},

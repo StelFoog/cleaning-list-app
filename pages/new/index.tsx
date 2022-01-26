@@ -4,17 +4,19 @@ import Link from 'next/link';
 import path from 'path';
 import styles from '../../styles/Forms.module.css';
 import { CleaningList, ListTypes } from '../../types/forms';
+import { Translations } from '../../types/Translations';
 import { getTranslations } from '../../util/getLocalizations';
 import localize from '../../util/localize';
 
-interface Props {
+interface Props extends Translations {
 	forms: { title: string; type: ListTypes }[];
 }
 
-const Forms: NextPage<Props> = ({ forms }) => {
+const Forms: NextPage<Props> = ({ forms, translations }) => {
+	const l10n = localize(translations).instance('pages.new-form-list');
 	return (
 		<main>
-			<h1>Forms</h1>
+			<h1>{l10n('title')}</h1>
 			{forms.map((form) => (
 				<Option title={form.title} link={form.type} key={form.type} />
 			))}
@@ -30,7 +32,7 @@ function Option({ title, link }: { title: string; link: string }) {
 	);
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<Props> = async ({ locale }) => {
 	// could use '/forms/en/', both should contain the exact same filenames
 	const filenames = readdirSync(path.join(process.cwd(), 'forms'));
 
@@ -45,7 +47,9 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 		forms.push({ type, title: l10n(`${type}.title`) });
 	});
 
-	return { props: { forms }, revalidate: false };
+	const translations = getTranslations(locale as string, ['pages.new-form-list']);
+
+	return { props: { forms, translations }, revalidate: false };
 };
 
 export default Forms;
