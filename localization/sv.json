@@ -456,21 +456,30 @@
 			"title": "Formulär"
 		},
 		"new-form": {
-			"name": "Namn",
-			"phone": "Telefonnummer",
-			"event-date": "Eventdatum",
-			"host": "Värd",
-			"note": "Anmärkning",
 			"submit": "Skicka in",
 			"invalid-date": "Ogiltigt datum",
 			"required-note": "Krävs, måste förklara varför object lämnades ofyllda",
 			"no-auth": "Inte autentiserad!",
 			"everything-saved": "Oroa dig inte, allt kommer va kvar där du lämnade det 🙂",
 			"successful-submit": "INskickning lyckades 👍"
+		},
+		"submitted-form-list": {
+			"title": "INskickade formulär"
+		},
+		"submitted-form": {
+			"all-checks-complete": "Allting ifyllt!",
+			"omitted-checks": "Utelämnade objekt"
 		}
 	},
 	"general": {
 		"required": "Krävs",
-		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan"
+		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan",
+		"input": {
+			"name": "Namn",
+			"phone": "Telefonnummer",
+			"event-date": "Eventdatum",
+			"host": "Värd",
+			"note": "Anmärkning"
+		}
 	}
 }

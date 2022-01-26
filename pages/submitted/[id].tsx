@@ -12,7 +12,6 @@ import { formatDate } from '../../util/date';
 import { getTranslations } from '../../util/getLocalizations';
 import useAxios from '../../util/hooks/useAxios';
 import localize, { Localization } from '../../util/localize';
-import { fromSafe } from '../../util/safePeriod';
 import { documentType } from '../api/type';
 
 interface Props extends Translations {
@@ -24,35 +23,38 @@ const List: NextPage<Props> = ({ id, form, translations }) => {
 	const { data, loading } = useAxios<ResData<SubmittedList>>('get', { params: { id } });
 	const list = data?.value;
 
-	const l10n = localize(translations).instance(`forms.${form.type}`);
+	const l10n = localize(translations);
+	const formInstance = l10n.instance(`forms.${form.type}`);
+	const inputInstance = l10n.instance('general.input');
+	const pageInstance = l10n.instance('pages.submitted-form');
 
 	return (
 		<main>
 			{loading && <Loader />}
-			<FormHeading title={l10n('title')} version={list?.version} />
+			<FormHeading title={formInstance('title')} version={list?.version} />
 			{typeof list === 'object' && (
 				<>
 					<table>
 						<tbody className={styles.table}>
 							<tr>
-								<td>Name:</td>
+								<td>{inputInstance('name') + ':'}</td>
 								<td>{list.name}</td>
 							</tr>
 							<tr>
-								<td>Phone:</td>
+								<td>{inputInstance('phone') + ':'}</td>
 								<td>{list.phone}</td>
 							</tr>
 							<tr>
-								<td>Event Date:</td>
+								<td>{inputInstance('event-date') + ':'}</td>
 								<td>{formatDate(list.eventDate)}</td>
 							</tr>
 							<tr>
-								<td>Host:</td>
+								<td>{inputInstance('host') + ':'}</td>
 								<td>{list.host}</td>
 							</tr>
 							{list.note && (
 								<tr>
-									<td>Note:</td>
+									<td>{inputInstance('note') + ':'}</td>
 									<td>{list.note}</td>
 								</tr>
 							)}
@@ -60,9 +62,13 @@ const List: NextPage<Props> = ({ id, form, translations }) => {
 					</table>
 					{list.omittedChecks &&
 						(Object.keys(list.omittedChecks).length > 0 ? (
-							<OmittedChecks omittedChecks={list.omittedChecks} form={form} l10n={l10n} />
+							<OmittedChecks
+								omittedChecks={list.omittedChecks}
+								formInstance={formInstance}
+								title={pageInstance('omitted-checks')}
+							/>
 						) : (
-							<h3 style={{ color: '#4a5' }}>All checks completed!</h3>
+							<h3 style={{ color: '#4a5' }}>{pageInstance('all-checks-complete')}</h3>
 						))}
 				</>
 			)}
@@ -72,19 +78,19 @@ const List: NextPage<Props> = ({ id, form, translations }) => {
 
 function OmittedChecks({
 	omittedChecks,
-	form,
-	l10n,
+	formInstance,
+	title,
 }: {
 	omittedChecks: Unchecked;
-	form: CleaningList;
-	l10n: Localization;
+	formInstance: Localization;
+	title: string;
 }): JSX.Element {
 	return (
 		<>
-			<h3>Omitted checks</h3>
+			<h3>{title}</h3>
 			<div className={styles.omitted}>
 				{Object.entries(omittedChecks).map(([sc, category]) => {
-					const scInstance = l10n.instance(`superCategories.${sc}`);
+					const scInstance = formInstance.instance(`superCategories.${sc}`);
 
 					return (
 						<div key={sc}>
@@ -129,7 +135,11 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 		readFileSync(path.join(process.cwd(), 'forms', `${type as string}.json`)).toString()
 	);
 
-	const translations = getTranslations(locale as string, [`forms.${type}`]);
+	const translations = getTranslations(locale as string, [
+		`forms.${type}`,
+		'general.input',
+		'pages.submitted-form',
+	]);
 
 	return { props: { id, form: fileData, translations }, revalidate: 100 };
 };

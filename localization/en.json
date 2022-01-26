@@ -456,21 +456,30 @@
 			"title": "Forms"
 		},
 		"new-form": {
-			"name": "Name",
-			"phone": "Phone number",
-			"event-date": "Date of Event",
-			"host": "Host",
-			"note": "Note",
 			"submit": "Submit",
 			"invalid-date": "INvalid date",
 			"required-note": "Required, must explain why checks were left unchecked",
 			"no-auth": "Not authenticated!",
 			"everything-saved": "Don't worry, everything will still be where you left it 🙂",
 			"successful-submit": "Submitted sucessfully 👍"
+		},
+		"submitted-form-list": {
+			"title": "Submitted Forms"
+		},
+		"submitted-form": {
+			"all-checks-complete": "All checks completed!",
+			"omitted-checks": "Omitted checks"
 		}
 	},
 	"general": {
 		"required": "Required",
-		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan"
+		"authentication-required": "Du måste vara autentiserad för att komma åt den här sidan",
+		"input": {
+			"name": "Name",
+			"phone": "Phone number",
+			"event-date": "Date of Event",
+			"host": "Host",
+			"note": "Note"
+		}
 	}
 }

@@ -76,6 +76,7 @@ const FormPage: NextPage<Props> = (props) => {
 	const l10n = localize(props.translations);
 	const pageInstance = l10n.instance('pages.new-form');
 	const formInstance = l10n.instance(`forms.${formData.type}`);
+	const inputInstance = l10n.instance('general.input');
 	const required = l10n('general.required');
 
 	function noAuthentication(): void {
@@ -168,7 +169,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label={pageInstance('name')}
+											label={inputInstance('name')}
 										/>
 									)}
 								/>
@@ -178,7 +179,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label={pageInstance('phone')}
+											label={inputInstance('phone')}
 										/>
 									)}
 								/>
@@ -188,7 +189,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label={pageInstance('event-date')}
+											label={inputInstance('event-date')}
 											format="####-##-##"
 											mask={['Y', 'Y', 'Y', 'Y', 'M', 'M', 'D', 'D']}
 											placeholder="YYYY-MM-DD"
@@ -201,7 +202,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label={pageInstance('host')}
+											label={inputInstance('host')}
 										/>
 									)}
 								/>
@@ -211,7 +212,7 @@ const FormPage: NextPage<Props> = (props) => {
 										<TextInput
 											input={input}
 											error={meta.touched && (meta.error || meta.submitError)}
-											label={pageInstance('note')}
+											label={inputInstance('note')}
 											multiline
 										/>
 									)}
@@ -334,6 +335,7 @@ export const getStaticProps: GetStaticProps<Props> = async ({ params, locale }) 
 		`forms.${form}`,
 		'pages.new-form',
 		'general.required',
+		`general.input`,
 	]);
 
 	return { props: { form: formData, translations }, revalidate: false };
