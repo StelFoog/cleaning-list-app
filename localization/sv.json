@@ -450,7 +450,8 @@
 		},
 		"settings": {
 			"remove-authentication": "Ta bort autentisering",
-			"dark-mode": "Använd mörkt tema"
+			"dark-mode": "Använd mörkt tema",
+			"translate": "English"
 		},
 		"new-form-list": {
 			"title": "Formulär"

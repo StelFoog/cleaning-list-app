@@ -450,7 +450,8 @@
 		},
 		"settings": {
 			"remove-authentication": "Remove authentication",
-			"dark-mode": "Use dark-mode"
+			"dark-mode": "Use dark-mode",
+			"translate": "Svenska"
 		},
 		"new-form-list": {
 			"title": "Forms"
