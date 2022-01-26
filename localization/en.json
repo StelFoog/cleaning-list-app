@@ -449,6 +449,7 @@
 			"settings": "Settings"
 		},
 		"settings": {
+			"title": "Settings",
 			"remove-authentication": "Remove authentication",
 			"dark-mode": "Use dark-mode",
 			"translate": "Svenska"

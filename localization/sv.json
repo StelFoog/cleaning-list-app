@@ -449,6 +449,7 @@
 			"settings": "Inställningar"
 		},
 		"settings": {
+			"title": "Inställningar",
 			"remove-authentication": "Ta bort autentisering",
 			"dark-mode": "Använd mörkt tema",
 			"translate": "English"

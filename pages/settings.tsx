@@ -31,6 +31,7 @@ const Settings: NextPage<Props> = ({ translations, locale }) => {
 
 	return (
 		<main>
+			<h1>{pageInstance('title')}</h1>
 			<button onClick={deauthenticate}>{pageInstance('remove-authentication')}</button>
 			<div className="contentSplit" />
 			<Link href="/" locale={locale === 'sv' ? 'en' : 'sv'} passHref>
