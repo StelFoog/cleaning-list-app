@@ -116,6 +116,7 @@ const FormPage: NextPage<Props> = (props) => {
 				toast.success(pageInstance('successful-submit'));
 				router.push('/');
 			} else {
+				setLoading(false);
 				if (res?.deauthenticated) noAuthentication();
 				if (res?.error) toast.error(res.error);
 			}
@@ -220,7 +221,9 @@ const FormPage: NextPage<Props> = (props) => {
 							</ThemeProvider>
 						)}
 						<div className="contentSplit" />
-						<button type="submit">{pageInstance('submit')}</button>
+						<button type="submit" disabled={loading}>
+							{pageInstance('submit')}
+						</button>
 					</form>
 				)}
 			/>
